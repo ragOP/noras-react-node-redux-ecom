@@ -1,13 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 
+import { BrowserRouter as ReactRoutes } from "react-router-dom";
+import AllRoutes from './route';
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      sayem
-      </header>
-    </div>
+    <ReactRoutes>
+  <AllRoutes/>
+   </ReactRoutes>
   );
 }
 
