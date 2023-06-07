@@ -1,8 +1,9 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 // import Cookies from "js-cookie";
-import Login from './pages/Login'
-import Homepage from './pages/Homepage'
+import Login from './pages/Login';
+import Homepage from './pages/Homepage';
+import CreateAccount from "./pages/CreateAccount";
 
 // import Error from "../pages/common/error/index";
 
@@ -23,6 +24,7 @@ function AllRoutes() {
         <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/auth/login' element={<Login />} />
+            <Route path='/CreateAccount' element={<CreateAccount/>}/>
             <Route
                 path='/homepage'
                 element={<ProtectedRoute component={Homepage} />}
