@@ -16,6 +16,9 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import MenuItems from './MenuItem';
+import { useNavigate } from 'react-router-dom';
+import Button from "@mui/material/Button";
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,9 +63,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const navigate=useNavigate();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -100,6 +104,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={()=>navigate('/auth/login')}>Logout</MenuItem>
     </Menu>
   );
 
@@ -176,6 +181,7 @@ export default function Navbar() {
           >
             Nooras
           </Typography>
+          <Button  variant="outlined" style={{color:'white',fontStyle:'inherit',fontSize:'16px'}} onClick={()=>navigate('/travel')}><b>Travel </b></Button>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -190,6 +196,7 @@ export default function Navbar() {
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
+                
               </Badge>
             </IconButton>
             <IconButton

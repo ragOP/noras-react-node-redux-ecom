@@ -5,6 +5,10 @@ import Login from './pages/Login';
 import Homepage from './pages/Homepage';
 import CreateAccount from "./pages/CreateAccount";
 import Lamp from "./pages/Lamp";
+import ProductPage from "./Components/ProductPage";
+import ProductDetail from "./Components/ProductDetail";
+import Travel from "./pages/Travel";
+import Trips from "./Components/Trips";
 
 // import Error from "../pages/common/error/index";
 
@@ -26,6 +30,10 @@ function AllRoutes() {
             <Route path='/' element={<Login />} />
             <Route path='/auth/login' element={<Login />} />
             <Route path='/CreateAccount' element={<CreateAccount/>}/>
+            <Route path='/ProductPage' element={<ProductPage />} />
+            <Route path='/ProductDetail' element={<ProductDetail />} />
+            <Route path='/travel' element={<Travel />} />
+            <Route path='/trips' element={<Trips />} />
             <Route
                 path='/homepage'
                 element={<ProtectedRoute component={Homepage} />}
@@ -34,6 +42,7 @@ function AllRoutes() {
                 path='/lamp'
                 element={<ProtectedRoute component={Lamp} />}
             />
+            
            
         </Routes>
     );
