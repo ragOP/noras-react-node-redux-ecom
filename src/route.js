@@ -4,6 +4,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import Login from './pages/Login';
 import Homepage from './pages/Homepage';
 import CreateAccount from "./pages/CreateAccount";
+import Lamp from "./pages/Lamp";
 
 // import Error from "../pages/common/error/index";
 
@@ -28,6 +29,10 @@ function AllRoutes() {
             <Route
                 path='/homepage'
                 element={<ProtectedRoute component={Homepage} />}
+            />
+             <Route
+                path='/lamp'
+                element={<ProtectedRoute component={Lamp} />}
             />
            
         </Routes>

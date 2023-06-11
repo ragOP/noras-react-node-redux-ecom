@@ -1,7 +1,9 @@
 import { Card } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LeftPanel = () => {
+  const navigate = useNavigate();
   const containerStyle = {
     height: '350px',
     width: '330px',
@@ -43,7 +45,7 @@ const LeftPanel = () => {
       <Card style={cardStyle}>
         aaaaaa
       </Card>
-      <Card style={cardStyleTwo}>
+      <Card  onClick={()=>navigate('/lamp')}style={cardStyleTwo}>
        Lamp
       </Card>
       <Card style={cardStyle}>
