@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../Components/Navbar";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -11,14 +11,20 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import MyTextField from "./MyTextField";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import Trips from "../Components/Trips";
+// import Trips from "../Components/Trips";
 
 const Travel = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const [fromValue, setFromValue] = useState(null);
+  const [toValue, setToValue] = useState(null);
+  const [radioValue, setradioValue] = useState(null);
+  const [detailValue, setdetailValue] = useState(null);
+  const [dateValue, setdateValue] = useState(null);
+
   const countries = [
     { label: "Delhi" },
     { label: "Mumbai" },
@@ -72,6 +78,25 @@ const Travel = () => {
     height: "120px",
   };
 
+  const handleSearch = () => {
+    console.log("From:", fromValue);
+    console.log("To:", toValue);
+    console.log("radio:", radioValue);
+    console.log("date:", dateValue);
+   
+    
+    navigate("/trips", {
+      state: {
+        fromValue: fromValue,
+        toValue: toValue,
+        radioValue: radioValue,
+        detail: detailValue,
+        date: dateValue,
+      },
+    });
+  };
+
+
   return (
     <>
       <Navbar />
@@ -86,6 +111,7 @@ const Travel = () => {
               row
               aria-labelledby="demo-row-radio-buttons-group-label"
               name="row-radio-buttons-group"
+              onChange={(event, value) => setradioValue(value)}
             >
               <FormControlLabel
                 value="oneway"
@@ -106,6 +132,7 @@ const Travel = () => {
             options={countries}
             autoHighlight
             getOptionLabel={(option) => option.label}
+            onChange={(event, value) => setFromValue(value)}
             renderOption={(props, option) => (
               <Box component="li" {...props}>
                 {option.label}
@@ -128,6 +155,7 @@ const Travel = () => {
             options={countries2}
             autoHighlight
             getOptionLabel={(option) => option.label}
+            onChange={(event, value) => setToValue(value)}
             renderOption={(props, option) => (
               <Box component="li" {...props}>
                 {option.label}
@@ -144,7 +172,7 @@ const Travel = () => {
               />
             )}
           />
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
+          {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer
               sx={{ marginTop: "-62px" }}
               components={["DateRangePicker"]}
@@ -153,14 +181,19 @@ const Travel = () => {
                 className="date-range-picker"
                 localeText={{ start: "Depart On", end: "Return On" }}
                 sx={{ width: 300, marginLeft: 55 }}
+                // onChange={(newValue) => setdateValue(newValue)}
               />
             </DemoContainer>
-
-          </LocalizationProvider>
-          <MyTextField  sx={{marginTop:-20}}/>
-          <Button variant="contained"  onClick={()=>navigate('/trips')} sx={{marginLeft:145,marginTop:-14}} >Search</Button>
+          </LocalizationProvider> */}
+          <MyTextField sx={{ marginTop: -20 }}  />
+          <Button
+            variant="contained"
+            onClick={handleSearch}
+            sx={{ marginLeft: 145, marginTop: -14 }}
+          >
+            Search
+          </Button>
         </div>
-       
       </div>
       <div style={div2Style}>
         <img
@@ -180,8 +213,6 @@ const Travel = () => {
           style={{ width: "100%", height: "100%", marginRight: "15px" }}
         />
       </div>
-
-     
     </>
   );
 };

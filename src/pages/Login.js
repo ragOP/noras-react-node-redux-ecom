@@ -14,8 +14,9 @@ const Login = () => {
 
   const handle = () => {
     if (email === 'r@gmail.com' && password === '00000') {
-      navigate('/homepage');
+      // navigate('/homepage');
     } else {
+      navigate('/homepage');
       alert('Wrong password');
     }
   };
