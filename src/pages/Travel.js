@@ -7,6 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import Modal from '@mui/material/Modal';
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
@@ -24,6 +25,35 @@ const Travel = () => {
   const [radioValue, setradioValue] = useState(null);
   const [detailValue, setdetailValue] = useState(null);
   const [dateValue, setdateValue] = useState(null);
+  const [numAdults, setNumAdults] = useState(0);
+  console.log('numAdults',numAdults)
+  const [numInfants, setNumInfants] = useState(0);
+  const [numChildren, setNumChildren] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleadultChange = (event) => {
+    setNumAdults(event.target.value);
+
+  };
+  const handleinfantChange = (event) => {
+    setNumInfants(event.target.value);
+  };
+  const handlechildrenChange = (event) => {
+    setNumChildren(event.target.value);
+  };
 
   const countries = [
     { label: "Delhi" },
@@ -83,6 +113,10 @@ const Travel = () => {
     console.log("To:", toValue);
     console.log("radio:", radioValue);
     console.log("date:", dateValue);
+    console.log("numAdults:", numAdults);
+    console.log("numInfants:", numInfants);
+    console.log(" numChildren:", numChildren);
+    
    
     
     navigate("/trips", {
@@ -92,8 +126,34 @@ const Travel = () => {
         radioValue: radioValue,
         detail: detailValue,
         date: dateValue,
+        
       },
     });
+  };
+  const handleIncrement = (type) => {
+    if (type === 'adults') {
+      setNumAdults(numAdults + 1);
+    } else if (type === 'infants') {
+      setNumInfants(numInfants + 1);
+    } else if (type === 'children') {
+      setNumChildren(numChildren + 1);
+    }
+  };
+
+  const handleDecrement = (type) => {
+    if (type === 'adults' && numAdults > 0) {
+      setNumAdults(numAdults - 1);
+    } else if (type === 'infants' && numInfants > 0) {
+      setNumInfants(numInfants - 1);
+    } else if (type === 'children' && numChildren > 0) {
+      setNumChildren(numChildren - 1);
+    }
+  };
+  const getSelectedOptionText = () => {
+    if (!selectedOption) {
+      return 'No option selected';
+    }
+    return selectedOption;
   };
 
 
@@ -185,7 +245,111 @@ const Travel = () => {
               />
             </DemoContainer>
           </LocalizationProvider> */}
-          <MyTextField sx={{ marginTop: -20 }}  />
+
+          <div style={{ marginTop: '-5px', marginLeft: '750px', width: '300px' }}>
+      <TextField
+        label="Enter your text"
+        variant="outlined"
+        onClick={handleOpen}
+        sx={{ minWidth: 400, marginTop: -6, marginRight: 6 }}
+        value={`${
+          String(getSelectedOptionText()) +
+          ' - Adults: ' +
+          numAdults +
+          ', Infants: ' +
+          numInfants +
+          ', Children: ' +
+          numChildren
+        }`}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <Modal open={isOpen} onClose={handleClose}>
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'white',
+            padding: '2rem',
+            display: 'fit',
+          }}
+        >
+          <h2>Modal Content</h2>
+          <div style={{ display: 'flex', flexDirection: 'column'}}>
+            <div>
+              <label>Adults:</label>
+              <button onClick={() => handleDecrement('adults')} >-</button>
+              <input
+                type="text"
+                value={numAdults}
+                onChange={handleadultChange}
+                
+              />
+              <button onClick={() => handleIncrement('adults')}>+</button>
+            </div>
+            <div>
+              <label>Infants:</label>
+              <button onClick={() => handleDecrement('infants')}>-</button>
+              <input
+                type="text"
+                value={numInfants}
+                onChange={handleinfantChange}
+              />
+              <button onClick={() => handleIncrement('infants')}>+</button>
+            </div>
+            <div>
+              <label>Children:</label>
+              <button onClick={() => handleDecrement('children')}>-</button>
+              <input
+                type="text"
+                value={numChildren}
+                onChange={handlechildrenChange}
+              />
+              <button onClick={() => handleIncrement('children')}>+</button>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value="Business"
+                    checked={selectedOption === 'Business'}
+                    onChange={handleRadioChange}
+                  />
+                  Business
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value="Economy"
+                    checked={selectedOption === 'Economy'}
+                    onChange={handleRadioChange}
+                  />
+                  Economy
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    value="Premium"
+                    checked={selectedOption === 'Premium'}
+                    onChange={handleRadioChange}
+                  />
+                  Premium
+                </label>
+              </div>
+            </div>
+            <button onClick={handleClose}>Done</button>
+          </div>
+        </div>
+      </Modal>
+    </div>
           <Button
             variant="contained"
             onClick={handleSearch}
